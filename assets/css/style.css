@@ -24,35 +24,47 @@
   /* gradient */
 
   --bg-gradient-onyx: linear-gradient(
-    to bottom right,
-    hsl(240, 1%, 25%) 3%,
-    hsl(0, 0%, 19%) 97%
+          to bottom right,
+          hsl(240, 1%, 25%) 3%,
+          hsl(0, 0%, 19%) 97%
   );
   --bg-gradient-jet: linear-gradient(
-    to bottom right,
-    hsla(240, 1%, 18%, 0.251) 0%,
-    hsla(240, 2%, 11%, 0) 100%
+          to bottom right,
+          hsla(240, 1%, 18%, 0.251) 0%,
+          hsla(240, 2%, 11%, 0) 100%
   ), hsl(240, 2%, 13%);
   --bg-gradient-yellow-1: linear-gradient(
-    to bottom right,
-    hsl(45, 100%, 71%) 0%,
-    hsla(36, 100%, 69%, 0) 50%
+          to bottom right,
+          hsl(45, 100%, 71%) 0%,
+          hsla(36, 100%, 69%, 0) 50%
   );
+  --bg-yellow-soft: hsla(45, 100%, 60%, 0.2);
   --bg-gradient-yellow-2: linear-gradient(
-    135deg,
-    hsla(45, 100%, 71%, 0.251) 0%,
-    hsla(35, 100%, 68%, 0) 59.86%
+          135deg,
+          hsla(45, 100%, 71%, 0.251) 0%,
+          hsla(35, 100%, 68%, 0) 59.86%
   ), hsl(240, 2%, 13%);
   --border-gradient-onyx: linear-gradient(
-    to bottom right,
-    hsl(0, 0%, 25%) 0%,
-    hsla(0, 0%, 25%, 0) 50%
+          to bottom right,
+          hsl(0, 0%, 25%) 0%,
+          hsla(0, 0%, 25%, 0) 50%
   );
   --text-gradient-yellow: linear-gradient(
-    to right,
-    hsl(45, 100%, 72%),
-    hsl(35, 100%, 68%)
+          to right,
+          hsl(45, 100%, 72%),
+          hsl(35, 100%, 68%)
   );
+  --bg-gradient-skill-expand: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.04),
+          rgba(255, 255, 255, 0.01)
+  );
+  /*--bg-gradient-skill-expand: linear-gradient(*/
+  /*        145deg,*/
+  /*        rgba(255, 215, 0, 0.08) 0%,*/
+  /*        rgba(255, 165, 0, 0.06) 30%,*/
+  /*        rgba(255, 255, 255, 0.03) 100%*/
+  /*);*/
 
   /* solid */
 
@@ -66,6 +78,7 @@
   --orange-yellow-crayola: hsl(45, 100%, 72%);
   --vegas-gold: hsl(45, 54%, 58%);
   --light-gray: hsl(0, 0%, 84%);
+  --gray: hsl(0, 0%, 60%);
   --light-gray-70: hsla(0, 0%, 84%, 0.7);
   --bittersweet-shimmer: hsl(0, 43%, 51%);
 
@@ -132,7 +145,7 @@
 *, *::before, *::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: content-box;
 }
 
 a { text-decoration: none; }
@@ -415,7 +428,7 @@ main {
 .contacts-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: -1px;
 }
 
 .contact-item {
@@ -1036,14 +1049,27 @@ main {
 }
 
 .project-category {
-  color: var(--light-gray-70);
-  font-size: var(--fs-6);
-  font-weight: var(--fw-300);
+  margin: 0;
+  color: var(--white-2);
+  font-size: var(--fs-7);
+  line-height: 1.5;
+  margin-bottom: 2px;
 }
 
-
-
-
+.project-category2 {
+  margin: 0;
+  color: var(--white-2);
+  font-size: var(--fs-7);
+  line-height: 1.5;
+  margin-bottom: 2px;
+}
+.project-tech {
+  font-size: var(--fs-6);
+  color: var(--white-1);
+  margin-top: 4px;
+  line-height: 1.5;
+  font-style: italic;
+}
 
 /*-----------------------------------*\
   #BLOG
@@ -1320,10 +1346,10 @@ textarea.form-input::-webkit-resizer { display: none; }
   }
 
   .icon-box {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 14px;
   }
 
 
@@ -1350,11 +1376,11 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .sidebar.active { max-height: 584px; }
 
-  .sidebar-info { gap: 25px; }
+  .sidebar-info { gap: 12px; }
 
   .avatar-box { border-radius: 30px; }
 
-  .avatar-box img { width: 120px; }
+  .avatar-box img { width: 120px; height:150px;  }
 
   .info-content .name { margin-bottom: 15px; }
 
@@ -1373,9 +1399,9 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .info_more-btn ion-icon { display: none; }
 
-  .separator { margin: 32px 0; }
+  .separator { margin: 30px 0; }
 
-  .contacts-list { gap: 20px; }
+  .contacts-list { gap: 5px; }
 
   .contact-info {
     max-width: calc(100% - 64px);
@@ -1404,6 +1430,19 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .about-text { margin-bottom: 40px; }
 
+
+  .about-text .highlight {
+    font-weight: 700;
+    color: rgba(255, 165, 30, 0.67);
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .about-text .highlight:hover {
+    background-color: rgb(255, 255, 255);   /* Slightly darker on hover */
+    cursor: default;
+  }
   /* service */
 
   .service-item {
@@ -1428,8 +1467,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   .testimonials-list {
     gap: 30px;
     margin: 0 -30px;
-    padding: 30px;
-    padding-bottom: 35px;
+    padding: 30px 30px 35px;
   }
 
   .content-card {
@@ -1582,7 +1620,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .contacts-list {
     grid-template-columns: 1fr 1fr;
-    gap: 30px 15px;
+    gap: 15px 15px;
   }
 
 
@@ -1794,7 +1832,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     background: hsla(0, 0%, 100%, 0.1);
     border-radius: 20px;
     box-shadow: inset 1px 1px 0 hsla(0, 0%, 100%, 0.11),
-                inset -1px -1px 0 hsla(0, 0%, 100%, 0.11);
+    inset -1px -1px 0 hsla(0, 0%, 100%, 0.11);
   }
 
   body::-webkit-scrollbar-thumb:hover { background: hsla(0, 0%, 100%, 0.15); }

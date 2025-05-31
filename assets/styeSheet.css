@@ -46,7 +46,8 @@
 }
 
 .skill-list {
-    background: var(--bg-gradient-onyx);
+    background: var(--bg-gradient-skill-expand);
+    border-radius: 20px 20px 0 0;
     padding-left: 20px;
     margin-top: 10px;
 }
@@ -64,32 +65,34 @@
 
 .skill-category.active .skill-content {
     max-height: 500px;
+    margin-bottom: 30px;
 }
 
 /* Skills Icons Grid */
 .skills-icons-container {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 15px;
 }
 
 .skill-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: var(--border-gradient-onyx);
+    background: var(--bg-gradient-skill-expand);
     border-radius: 14px;
-    padding: 20px 15px;
+    padding: 0;
+    justify-content: center;
     box-shadow: var(--shadow-1);
     transition: all 0.3s ease;
 }
 
 .skill-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-15px);
     box-shadow: var(--shadow-2);
 }
 
@@ -99,18 +102,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-gradient-onyx);
+    /*background: var(--bg-gradient-onyx);*/
     border-radius: 12px;
-    margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.skill-icon-box2 {
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*background: var(--bg-gradient-onyx);*/
+    border-radius: 12px;
     position: relative;
     cursor: pointer;
 }
 
 /* Tooltip on hover */
-.skill-icon-box::after {
+.skill-icon-box::after,
+.skill-icon-box2::after {
     content: attr(aria-label);
     position: absolute;
-    bottom: -35px;
+    bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
     background: var(--vegas-gold);
@@ -125,7 +140,8 @@
     z-index: 10;
 }
 
-.skill-icon-box:hover::after {
+.skill-icon-box:hover::after,
+.skill-icon-box2:hover::after {
     opacity: 1;
 }
 
@@ -133,15 +149,28 @@
     width: 40px;
     height: 40px;
     object-fit: contain;
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+.skill-icon-box2 img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+    padding: 0;
+    margin: 0;
 }
 
 .skill-name {
     text-align: center;
-    margin: 0;
     font-weight: var(--fw-500);
     color: var(--white-2);
     font-size: var(--fs-7);
+    margin: 0;
 }
+
 /* ===== Project Cards ===== */
 .project-card {
     display: flex;
@@ -178,7 +207,6 @@
 }
 
 
-
 .project-content {
     display: flex;
     flex-direction: column;
@@ -196,13 +224,6 @@
 .project-description {
     flex-grow: 1;
     margin-bottom: 15px;
-}
-
-.project-category {
-    margin: 0;
-    color: var(--white-2);
-    font-size: var(--fs-7);
-    line-height: 1.5;
 }
 
 /* Project Buttons - Fixed at Bottom */
@@ -291,15 +312,12 @@
 }
 
 
-
 /* =====Download cv ===== */
 
 .download-btn-cv {
-    display: inline-block;
     text-decoration: underline;
-    color: inherit;
+    color: darkgoldenrod;
     padding: 10px 20px;
-
     border-radius: 1px;
     font-weight: bold;
     transition: background-color 0.3s ease;
@@ -307,9 +325,9 @@
 }
 
 .download-btn-cv:hover {
-    background-color: #0056b3;
+    background: var(--white-2);
+/ / transform: scale(1.03);
 }
-
 
 /* ===== Responsive Adjustments ===== */
 

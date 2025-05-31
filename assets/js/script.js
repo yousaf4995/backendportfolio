@@ -1,93 +1,137 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // Navigation functionality
-  const navLinks = document.querySelectorAll('[data-nav-link]');
-  const pages = document.querySelectorAll('[data-page]');
+'use strict';
 
-  // Set initial active page (About)
-  pages.forEach(page => {
-    page.classList.remove('active');
-    if(page.getAttribute('data-page') === 'about') {
-      page.classList.add('active');
-    }
+document.addEventListener('DOMContentLoaded', function () {
+  // Move ALL your code here
+
+  const elementToggleFunc = function (elem) { elem.classList.toggle("active"); };
+
+  // SIDEBAR
+  const sidebar = document.querySelector("[data-sidebar]");
+  const sidebarBtn = document.querySelector("[data-sidebar-btn]");
+  sidebarBtn?.addEventListener("click", function () {
+    elementToggleFunc(sidebar);
   });
 
-  navLinks.forEach(link => {
-    link.addEventListener('click', function() {
-      // Remove active class from all nav links
-      navLinks.forEach(navLink => {
-        navLink.classList.remove('active');
-      });
+  // TESTIMONIAL MODAL
+  const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
+  const modalContainer = document.querySelector("[data-modal-container]");
+  const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
+  const overlay = document.querySelector("[data-overlay]");
+  const modalImg = document.querySelector("[data-modal-img]");
+  const modalTitle = document.querySelector("[data-modal-title]");
+  const modalText = document.querySelector("[data-modal-text]");
 
-      // Add active class to clicked nav link
-      this.classList.add('active');
+  const testimonialsModalFunc = function () {
+    modalContainer.classList.toggle("active");
+    overlay.classList.toggle("active");
+  };
 
-      // Get the target page name
-      const targetPage = this.getAttribute('data-nav-link');
-
-      // Hide all pages
-      pages.forEach(page => {
-        page.classList.remove('active');
-      });
-
-      // Show the target page
-      document.querySelector(`[data-page="${targetPage}"]`).classList.add('active');
+  testimonialsItem.forEach(item => {
+    item.addEventListener("click", function () {
+      modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
+      modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
+      modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
+      modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
+      testimonialsModalFunc();
     });
   });
 
-  // Sidebar toggle functionality
-  const sidebar = document.querySelector('[data-sidebar]');
-  const sidebarBtn = document.querySelector('[data-sidebar-btn]');
+  modalCloseBtn?.addEventListener("click", testimonialsModalFunc);
+  overlay?.addEventListener("click", testimonialsModalFunc);
 
-  if(sidebarBtn) {
-    sidebarBtn.addEventListener('click', function() {
-      sidebar.classList.toggle('active');
-    });
-  }
+  // CUSTOM SELECT & FILTERING
+  const select = document.querySelector("[data-select]");
+  const selectItems = document.querySelectorAll("[data-select-item]");
+  const selectValue = document.querySelector("[data-select-value]");
+  const filterBtn = document.querySelectorAll("[data-filter-btn]");
+  const filterItems = document.querySelectorAll("[data-filter-item]");
 
-  // Skills toggle functionality
-  const skillCategories = document.querySelectorAll('[data-skill-category]');
-
-  skillCategories.forEach(category => {
-    const header = category.querySelector('.skill-header');
-    const content = category.querySelector('.skill-content');
-
-    header.addEventListener('click', () => {
-      category.classList.toggle('active');
-      if(category.classList.contains('active')) {
-        content.style.maxHeight = content.scrollHeight + 'px';
+  const filterFunc = function (selectedValue) {
+    filterItems.forEach(item => {
+      const categories = item.dataset.category.split(',').map(cat => cat.trim().toLowerCase());
+      if (selectedValue === "all" || categories.includes(selectedValue)) {
+        item.classList.add("active");
       } else {
-        content.style.maxHeight = '0';
+        item.classList.remove("active");
+      }
+    });
+  };
+
+  select?.addEventListener("click", function () {
+    elementToggleFunc(this);
+  });
+
+  selectItems.forEach(item => {
+    item.addEventListener("click", function () {
+      const selectedValue = this.innerText.toLowerCase();
+      selectValue.innerText = this.innerText;
+      elementToggleFunc(select);
+      filterFunc(selectedValue);
+    });
+  });
+
+  let lastClickedBtn = filterBtn[0];
+
+  filterBtn.forEach(btn => {
+    btn.addEventListener("click", function () {
+      const selectedValue = this.innerText.toLowerCase();
+      selectValue.innerText = this.innerText;
+      filterFunc(selectedValue);
+
+      lastClickedBtn.classList.remove("active");
+      this.classList.add("active");
+      lastClickedBtn = this;
+    });
+  });
+
+  // CONTACT FORM
+  const form = document.querySelector("[data-form]");
+  const formInputs = document.querySelectorAll("[data-form-input]");
+  const formBtn = document.querySelector("[data-form-btn]");
+
+  formInputs.forEach(input => {
+    input.addEventListener("input", function () {
+      if (form.checkValidity()) {
+        formBtn.removeAttribute("disabled");
+      } else {
+        formBtn.setAttribute("disabled", "");
       }
     });
   });
 
-  // Portfolio filter functionality
-  const filterBtns = document.querySelectorAll('[data-filter-btn]');
-  const filterItems = document.querySelectorAll('[data-filter-item]');
+  // NAVIGATION
+  const navigationLinks = document.querySelectorAll("[data-nav-link]");
+  const pages = document.querySelectorAll("[data-page]");
 
-  if(filterBtns.length > 0) {
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        // Update active state on buttons
-        filterBtns.forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
+  navigationLinks.forEach(link => {
+    link.addEventListener("click", function () {
+      const targetPage = this.dataset.navLink;
 
-        const filterValue = this.getAttribute('data-filter-btn').toLowerCase();
+      pages.forEach((page, index) => {
+        const match = page.dataset.page === targetPage;
+        page.classList.toggle("active", match);
+        navigationLinks[index].classList.toggle("active", match);
+      });
 
-        // Filter items
-        filterItems.forEach(item => {
-          if(filterValue === 'all') {
-            item.classList.add('active');
-          } else {
-            const itemCategory = item.getAttribute('data-category').toLowerCase();
-            if(itemCategory === filterValue) {
-              item.classList.add('active');
-            } else {
-              item.classList.remove('active');
-            }
+      window.scrollTo(0, 0);
+    });
+  });
+
+  // SKILL DROPDOWNS
+  const skillCategories = document.querySelectorAll('[data-skill-category]');
+  if (skillCategories.length > 0) {
+    skillCategories[0].classList.add('active');
+  }
+  skillCategories.forEach(category => {
+    category.addEventListener('click', function () {
+      this.classList.toggle('active');
+      if (this.classList.contains('active')) {
+        skillCategories.forEach(other => {
+          if (other !== this && other.classList.contains('active')) {
+            other.classList.remove('active');
           }
         });
-      });
+      }
     });
-  }
+  });
 });
